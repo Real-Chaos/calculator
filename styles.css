@@ -9,6 +9,9 @@ body {
     display: flex;
     justify-content: flex-end;
 }
+.container {
+    position: relative;
+}
 .iphone {
     padding-right: 100px;
     margin-top: 25%;
@@ -61,6 +64,7 @@ body {
     top: 0px;
     right: 25px;
     font-size: 50px;
+    display: inline;
 }
 .calculator {
     display: grid;
@@ -102,4 +106,32 @@ body {
 }
 .extra {
     background-color: #D4D4D2;
+}
+.home {
+    height: 70px;
+    width: 70px;
+    position: absolute;
+    border: 5px solid white;
+    background-color: black;
+    left: 170px;
+    bottom: 20px;
+    border-radius: 50%;
+}
+.home:active {
+    background-color: white;
+}
+.home:focus {
+    outline: none;
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 100%;
+    }
+    .calculator button {
+        margin: 2px;
+    }
+    .iphone img {
+        width: 100%;
+    }
 }
