@@ -56,15 +56,19 @@ body {
     position: absolute;
     top: 180px;
     width: 350px;
+    height: 100px;
     left: 25px;
     color: white;
 }
+.responsive {
+    display: flex;
+    justify-content: flex-end;
+    overflow: auto;
+}
+
 .display p {
-    position: inherit;
-    top: 0px;
-    right: 25px;
     font-size: 50px;
-    display: inline;
+    overflow: auto;
 }
 .calculator {
     display: grid;
@@ -88,19 +92,20 @@ body {
     width: 50px;
     border-radius: 50%;
 }
-.zero {
+.zero, .clear{
     grid-column: 1/3;
-    width: 130px;
+    width: 150px;
     border-radius: 30px;
 }
-.number {
+.number, .decimal {
     background: #505050;
     color: white;
 }
 .number:active, .operator:active, .extra:active {
     background-color: black;
+    color: white;
 }
-.operator {
+.operator, .equals {
     background-color: #FF9500;
     color: white;
 }

@@ -1,7 +1,9 @@
 // Home ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 const container = document.querySelector('main')
 const home = document.querySelector('.home');
 let screenState = true;
+
 function homeButton() {
     window.addEventListener('load', ()=> {
         container.style.opacity = '0';
@@ -17,74 +19,159 @@ function homeButton() {
         }
     });
 }
+
 homeButton();
+
 // Display Numbers -----------------------------------------------------------------------------------------------------------------------------------------------
+
 const display = document.querySelector('.displaySection');
 const numbers = document.querySelectorAll('.number');
-let numberDisplayed = '';
+
 // Finding Operands ---------------------------------------------------------------------------------------------------------------------------------------------
 let firstOperand = '';
 let secondOperand = '';
 let keepAdding = true;
-const operator = document.querySelectorAll('.operator');
-function storingFirstOperand() {
-    numbers.forEach(num => {
-        num.addEventListener('click', () => {
-            if(keepAdding) {
-            firstOperand += num.textContent;
-            display.textContent = firstOperand.substring(0, 12);
-            }
-            operator.forEach(operate => { 
-                operate.addEventListener('click', ()=> {
-                    keepAdding = false;
-                });
-            });
+let equals = document.querySelector('.equals')
+let operators = document.querySelectorAll('.operator')
+
+function storingOperands() {
+        numbers.forEach(num => {
+            num.addEventListener('click', ()=> {
+                switch(keepAdding) {
+                    case true:
+                        firstOperand += num.textContent;
+                        display.textContent = firstOperand;
+                        break;
+                    case false:
+                        secondOperand += num.textContent;
+                        display.textContent = secondOperand;
+                        break;
+                }
+            })
+        })
+}
+
+storingOperands();
+
+function turnKeepAddingTOFalse() {
+    operators.forEach(operate => {
+        operate.addEventListener('click', ()=> {
+            keepAdding = false;
         });
     });
 }
-storingFirstOperand();
-function storingSecondOperand() {
-    operator.forEach(operate => {
-        operate.addEventListener('click', ()=> {
-            numbers.forEach(num => {
-                num.addEventListener('click', ()=> {
-                    secondOperand += num.textContent;
-                    display.textContent = secondOperand.substring(0, 12);
-                });
-            });
-        })
+
+turnKeepAddingTOFalse();
+
+
+// if(firstOperand === '' || secondOperand.length >= 1) {
+//     equals.addEventListener('click', ()=> {
+//         solution = solution + Number(secondOperand);
+//         display.textContent = solution;
+//             console.log('whyyyy')
+// })
+// }
+// Storing Operator -----------------------------------------------------------------------------------------------------------------------------------------------
+
+let operations = {
+    add: document.querySelector('.add'),
+    subtract: document.querySelector('.subtract'),
+    multiply: document.querySelector('.multiply'),
+    divide: document.querySelector('.divide')
+}
+
+let operatorChosen = null;
+
+function storingOperator() {
+    operators.forEach(operate => {
+        operations.add.addEventListener('click', ()=> {
+            operatorChosen = 'add';
+        });
+        operations.subtract.addEventListener('click', ()=> {
+            operatorChosen = 'subtract';
+        });
+        operations.multiply.addEventListener('click', ()=> {
+            operatorChosen = 'multiply';
+        });
+        operations.divide.addEventListener('click', ()=> {
+            operatorChosen = 'divide';
+        });
     })
 }
-storingSecondOperand()
+
+storingOperator();
+
+// Perform operation -----------------------------------------------------------------------------------------------------------------------------------------
+let solution = null;
+function performingOperation() {
+    equals.addEventListener('click', ()=> {
+    switch(operatorChosen) {
+        case 'add':
+            performAddition(firstOperand, secondOperand);
+            solution + secondOperand;
+            break;
+        case 'subtract':
+            subtract(firstOperand, secondOperand);
+            break;
+        case 'multiply':
+            multiply(firstOperand, secondOperand);
+            break;
+        case 'divide':
+            divide(firstOperand, secondOperand);
+    }
+})
+}
+
+performingOperation();
+
+// Solution -----------------------------------------------------------------------------------------------------------------------------------------------------------
+let no = null;
+function fixingSolution() {
+    equals.addEventListener('click', ()=> {
+        firstOperand = '';
+        secondOperand = '';
+        keepAdding = true;
+    });
+    if(no) {
+        console.log('kjhkh')
+    }
+}
+fixingSolution();
 // Add -----------------------------------------------------------------------------------------------------------------------------------------------------------
 function performAddition(a, b) {
-    display.textContent = (Number(a) + Number(b));
+    solution = (Number(a) + Number(b));
+    display.textContent = solution;
 }
 
 // Subtract ------------------------------------------------------------------------------------------------------------------------------------------------------
-function subtract() {
-
+function subtract(a, b) {
+    solution = (Number(a) - Number(b));
+    display.textContent = solution;
+    return solution;
 }
 // Multiply ------------------------------------------------------------------------------------------------------------------------------------------------------
-function multiply() {
-
+function multiply(a, b) {
+    solution = (Number(a) * Number(b));
+    display.textContent = solution;
+    return solution;
 }
 // Divide --------------------------------------------------------------------------------------------------------------------------------------------------------
-function divide() {
-
+function divide(a, b) {
+    solution = (Number(a) / Number(b));
+    display.textContent = solution;
+    return solution;
 }
-// Operate -------------------------------------------------------------------------------------------------------------------------------------------------------
-let yes = document.querySelector('.equals')
-let solution = {
-    add: document.querySelector('.add'),
-    subtract: document.querySelector('.subtract')
-}
-function operate() {
-    solution.add.addEventListener('click', ()=> {
-        yes.addEventListener('click', ()=> {
-            performAddition(firstOperand, secondOperand)
-        })
-    })
-}
-operate();
 // Clear ---------------------------------------------------------------------------------------------------------------------------------------------------------
+function clear() {
+    const clearButton = document.querySelector('.clear');
+    clearButton.addEventListener ('click', ()=> {
+        display.textContent = '0';
+        firstOperand = '';
+        secondOperand = '';
+        keepAdding = true;
+    });
+}
+clear();
+
+
+
