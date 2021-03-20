@@ -26,7 +26,7 @@ homeButton();
 
 const display = document.querySelector('.displaySection');
 const numbers = document.querySelectorAll('.number');
-
+let decimal = document.querySelector('.decimal')
 // Finding Operands ---------------------------------------------------------------------------------------------------------------------------------------------
 let firstOperand = '';
 let secondOperand = '';
@@ -45,6 +45,9 @@ function storingOperands() {
                     case false:
                         secondOperand += num.textContent;
                         display.textContent = secondOperand;
+                        if(!(secondOperand.includes('.'))) {
+                            decimalInOperandTwo();
+                        }
                         break;
                 }
             })
@@ -62,22 +65,14 @@ function turnKeepAddingTOFalse() {
 }
 
 turnKeepAddingTOFalse();
-
-
-// if(firstOperand === '' || secondOperand.length >= 1) {
-//     equals.addEventListener('click', ()=> {
-//         solution = solution + Number(secondOperand);
-//         display.textContent = solution;
-//             console.log('whyyyy')
-// })
-// }
 // Storing Operator -----------------------------------------------------------------------------------------------------------------------------------------------
 
 let operations = {
     add: document.querySelector('.add'),
     subtract: document.querySelector('.subtract'),
     multiply: document.querySelector('.multiply'),
-    divide: document.querySelector('.divide')
+    divide: document.querySelector('.divide'),
+    remainder: document.querySelector('.remainder')
 }
 
 let operatorChosen = null;
@@ -96,6 +91,9 @@ function storingOperator() {
         operations.divide.addEventListener('click', ()=> {
             operatorChosen = 'divide';
         });
+        operations.remainder.addEventListener('click', ()=> {
+            operatorChosen = 'remainder';
+        });
     })
 }
 
@@ -103,44 +101,47 @@ storingOperator();
 
 // Perform operation -----------------------------------------------------------------------------------------------------------------------------------------
 let solution = null;
-function performingOperation() {
-    equals.addEventListener('click', ()=> {
+let answer = null;
+
+function performingOperation(operationPerformer) {
+    
+    operationPerformer.addEventListener('click', ()=> {
     switch(operatorChosen) {
         case 'add':
-            performAddition(firstOperand, secondOperand);
-            solution + secondOperand;
+            answer = performAddition(firstOperand, secondOperand);
             break;
         case 'subtract':
-            subtract(firstOperand, secondOperand);
+            answer = subtract(firstOperand, secondOperand);
             break;
         case 'multiply':
-            multiply(firstOperand, secondOperand);
+            answer = multiply(firstOperand, secondOperand);
             break;
         case 'divide':
-            divide(firstOperand, secondOperand);
+            answer = divide(firstOperand, secondOperand);
+            break;
+        case 'remainder':
+            answer = remainderOf(firstOperand, secondOperand);
     }
 })
 }
-
-performingOperation();
+performingOperation(equals);
 
 // Solution -----------------------------------------------------------------------------------------------------------------------------------------------------------
-let no = null;
+
 function fixingSolution() {
+secondOperand = '';
     equals.addEventListener('click', ()=> {
-        firstOperand = '';
         secondOperand = '';
-        keepAdding = true;
+        firstOperand = answer;
     });
-    if(no) {
-        console.log('kjhkh')
-    }
 }
 fixingSolution();
+
 // Add -----------------------------------------------------------------------------------------------------------------------------------------------------------
 function performAddition(a, b) {
     solution = (Number(a) + Number(b));
     display.textContent = solution;
+    return solution;
 }
 
 // Subtract ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -159,6 +160,15 @@ function multiply(a, b) {
 function divide(a, b) {
     solution = (Number(a) / Number(b));
     display.textContent = solution;
+    if(a === '0' || b === '0') {
+        display.textContent = 'Quack Quack!';
+    }
+    return solution;
+}
+// Remainder -----------------------------------------------------------------------------------------------------------------------------------------------------
+function remainderOf(a, b) {
+    solution = (Number(a) % Number(b));
+    display.textContent = solution;
     return solution;
 }
 // Clear ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,9 +179,30 @@ function clear() {
         firstOperand = '';
         secondOperand = '';
         keepAdding = true;
+        checkDecimal();
     });
 }
 clear();
 
+// Decimal ------------------------------------------------------------------------------------------------------------------------------
+function checkDecimal() {
+    let decimalInOperand = false;
+    decimal.addEventListener('click', ()=> {
+        if(decimalInOperand === false){
+        firstOperand += decimal.textContent;
+        decimalInOperand = true;
+        }
+    });
+}
+checkDecimal();
 
+function decimalInOperandTwo() {
+    let decimalInSecondOperand = false;
+    decimal.addEventListener('click', ()=> {
+        if(decimalInSecondOperand === false){
+            secondOperand += decimal.textContent;
+            decimalInSecondOperand = true;
+        }
+    });
+}
 
