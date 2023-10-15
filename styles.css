@@ -132,6 +132,7 @@ body h1 {
 .calculator-design .calculator-buttons .operations button{
   background-color: #ff9908;
   margin-left: 3px;
+  color: white;
 }
 
 
