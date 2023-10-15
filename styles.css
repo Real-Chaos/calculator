@@ -83,7 +83,8 @@ body h1 {
 }
 
 .calculator-design button:focus {
-  background-color: #ffcccb !important;
+  background-color: whitesmoke !important;
+  color: black !important;
 }
 
 .calculator-design .calculator-buttons {

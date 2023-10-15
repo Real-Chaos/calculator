@@ -1,3 +1,6 @@
+// ---------------------- Declaring Variables ------------------ //
+
+
 const numbers = document.querySelectorAll('.number-btn')
 const operations = document.querySelectorAll('.operator')
 const display = document.querySelector('.calculator-display h1')
@@ -7,6 +10,23 @@ const switchSigns = document.querySelector('.switch-signs')
 let firstNumber = ''
 let secondNumber = ''
 let operator = ''
+
+
+// ---------------------- Adding Event Listeners ------------------ //
+
+equals.addEventListener('click', () => {
+  doOperations()
+})
+
+clear.addEventListener('click', () => {
+  firstNumber = ''
+  secondNumber = ''
+  operator = ''
+  display.textContent = '0'
+})
+
+
+// ---------------------- Declaring calculator functions ------------------ //
 
 const sum = (a, b) => {
   return a + b
@@ -25,30 +45,27 @@ const divide = (a, b) => {
 }
 
 const remainder = (a, b) => {
-  return a%b
+  return a % b
 }
 
-numbers.forEach((num) => {
-  num.addEventListener('click', () => {
-    // display.textContent = num.textContent
-    if (typeof firstNumber !== 'number' && operator === '') {
-      firstNumber += num.textContent
-      display.textContent = firstNumber
-      // firstNumber = Number(num.textContent)
-    } else if (firstNumber === Number(firstNumber) && operator.length > 0) {
-      secondNumber += num.textContent
-      display.textContent = secondNumber
-      // secondNumber = Number(num.textContent)
-    }
+// ---------------------- updating Numbers ------------------ //
+
+const updatingNumbers = () => {
+  numbers.forEach((num) => {
+    num.addEventListener('click', () => {
+      if (typeof firstNumber !== 'number' && operator === '') {
+        firstNumber += num.textContent
+        display.textContent = firstNumber
+      } else if (firstNumber === Number(firstNumber) && operator.length > 0) {
+        secondNumber += num.textContent
+        display.textContent = secondNumber
+      }
+    })
   })
-})
-
-const cleanUp = (result) => {
-  display.textContent = result
-  firstNumber = result
-  secondNumber = ''
-  operator = ''
 }
+
+// ---------------------- Doing Operations ------------------ //
+
 
 const doOperations = () => {
   firstNumber = Number(firstNumber)
@@ -65,45 +82,62 @@ const doOperations = () => {
   } else if (operator === 'divide') {
     const result = divide(firstNumber, secondNumber)
     cleanUp(result)
-  } else if(operator==='remainder') {
+  } else if (operator === 'remainder') {
     const result = remainder(firstNumber, secondNumber)
     cleanUp(result)
   }
 }
 
-switchSigns.addEventListener('click', () => {
-  if((firstNumber.length > 0 || typeof firstNumber === 'number')&& secondNumber.length < 1) {
-    firstNumber = Number(firstNumber)
-    firstNumber = firstNumber*-1
-    display.textContent = firstNumber
-  } else if(typeof firstNumber === 'number' && (secondNumber.length > 0|| typeof secondNumber === 'number')) {
-    secondNumber = Number(secondNumber)
-    secondNumber = secondNumber*-1
-    display.textContent = secondNumber
-  }
-})
+// ---------------------- swtiching signs ------------------ //
 
-equals.addEventListener('click', () => {
-  doOperations()
-})
-
-clear.addEventListener('click', () => {
-  firstNumber = ''
-  secondNumber = ''
-  operator = ''
-  display.textContent = '0'
-})
-
-operations.forEach((operation) => {
-  operation.addEventListener('click', () => {
-    firstNumber = Number(firstNumber)
-    if (operator === '') {
-      operator = operation.classList[1]
-    } else if (operator.length > 0) {
-      console.log('do something')
-      console.log(`${firstNumber} ${operator} ${secondNumber}`)
-      doOperations()
-      operator = operation.classList[1]
+const addSwitchingSigns = () => {
+  switchSigns.addEventListener('click', () => {
+    if (
+      (firstNumber.length > 0 || typeof firstNumber === 'number') &&
+      secondNumber.length < 1
+    ) {
+      firstNumber = Number(firstNumber)
+      firstNumber = firstNumber * -1
+      display.textContent = firstNumber
+    } else if (
+      typeof firstNumber === 'number' &&
+      (secondNumber.length > 0 || typeof secondNumber === 'number')
+    ) {
+      secondNumber = Number(secondNumber)
+      secondNumber = secondNumber * -1
+      display.textContent = secondNumber
     }
   })
-})
+}
+
+// ---------------------- Updating Operators ------------------ //
+
+
+const updatingOperator = () => {
+  operations.forEach((operation) => {
+    operation.addEventListener('click', () => {
+      firstNumber = Number(firstNumber)
+      if (operator === '') {
+        operator = operation.classList[1]
+      } else if (operator.length > 0) {
+        doOperations()
+        operator = operation.classList[1]
+      }
+    })
+  })
+}
+
+// ---------------------- Cleanup Function ------------------ //
+
+const cleanUp = (result) => {
+  display.textContent = result
+  firstNumber = result
+  secondNumber = ''
+  operator = ''
+}
+
+// ---------------------- calling variables ------------------ //
+
+updatingNumbers()
+addSwitchingSigns()
+updatingOperator()
