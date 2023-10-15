@@ -7,3 +7,147 @@
 body {
   background-color: #333;
 }
+
+body h1 {
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 40px;
+  padding-bottom: 10px;
+  margin-top: 50px;
+
+}
+
+.calculator {
+  display: flex;
+  justify-content: center;
+  padding: 3% 4%;
+}
+
+.calculator .phone-design {
+  width: 40%;
+  height: 70vh;
+  background-color: black;;
+  border-radius: 20px;
+  border: 8px solid black;
+
+}
+
+.phone-design {
+  padding: 2%;
+  position: relative;
+}
+
+.iphone-topbar {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.iphone-topbar div {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.calculator-design .calculator-display{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.calculator-design .calculator-buttons {
+  display: grid;
+}
+
+
+.calculator-design button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  padding: 10px 0;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator-design .calculator-buttons {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 10px;
+  /* width: 100%; */
+}
+
+.calculator-design .numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  gap: 3px;
+
+}
+
+.calculator-design .numbers button {
+  background-color: #333;
+  color: white;
+}
+
+.calculator-design .special-design {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3px;
+  margin-top: 5px;
+}
+
+.calculator-design .special-design button {
+  width: 100%;
+  /* height: 100%; */
+  /* margin-top: 1px; */
+  background-color: #333;
+  color: white;
+}
+
+.special-design .special-button {
+  border-radius: 40px;
+}
+.calculator-design .calculator-buttons .operations {
+  display: grid;
+  gap: 1px;
+  margin-left: 1px;
+}
+
+.calculator-design .calculator-buttons .operations button{
+  background-color: #ff9908;
+  margin-left: 3px;
+}
+
+
+
+
+
+
+footer {
+  background: #ff9400;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 40px;
+  color: #333;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
