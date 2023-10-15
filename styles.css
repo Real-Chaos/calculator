@@ -82,6 +82,10 @@ body h1 {
   align-items: center;
 }
 
+.calculator-design button:focus {
+  background-color: #ffcccb !important;
+}
+
 .calculator-design .calculator-buttons {
   display: grid;
   grid-template-columns: 4fr 1fr;
