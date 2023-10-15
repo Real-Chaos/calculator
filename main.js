@@ -29,7 +29,7 @@ clear.addEventListener('click', clearCalculator)
 
 const sum = (a, b) => {
   const addition = a + b
-  return +parseFloat(addition).toFixed( 6 )
+  return +parseFloat(addition).toFixed(6)
 }
 
 const subtract = (a, b) => {
@@ -44,6 +44,7 @@ const multiply = (a, b) => {
 
 const divide = (a, b) => {
   const division = a / b
+  if (b == 0) return 'Error'
   return +parseFloat(division).toFixed(6)
 }
 
@@ -81,11 +82,10 @@ const updatingNumbers = () => {
   })
 }
 
-
 // ---------------------- Keyboard support ------------------ //
 
 document.addEventListener('keydown', (e) => {
-  if (isFinite(e.key) || e.key===".") {
+  if (isFinite(e.key) || e.key === '.') {
     e.preventDefault()
     updateNumber(e.key)
   } else if (e.key === 'Backspace') {
@@ -104,7 +104,7 @@ document.addEventListener('keydown', (e) => {
     operator = 'divide'
   } else if (e.key === 'Enter') {
     doOperations()
-  } 
+  }
 })
 
 // ---------------------- Doing Operations ------------------ //
